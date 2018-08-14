@@ -1,7 +1,7 @@
 <%@ page language="java" import="dbtaobao.connDb,java.util.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-ArrayList<String[]> list = connDb.index_3();
+ArrayList<String[]> list = connDb.index_5();
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -21,13 +21,13 @@ ArrayList<String[]> list = connDb.index_3();
                 <li><a href="./index.jsp">所有买家各消费行为对比</a></li>
                 <li><a href="./index1.jsp">男女买家交易对比</a></li>
                 <li><a href="./index2.jsp">男女买家各个年龄段交易对比</a></li>
-                <li class="current"><a href="#">商品类别交易额对比</a></li>
+                <li><a href="./index3.jsp">商品类别交易额对比</a></li>
                 <li><a href="./index4.jsp">各省份的总成交量对比</a></li>
-                <li><a href="./index5.jsp">回头客预测结果对比</a></li>
+                <li class="current"><a href="#">回头客预测结果对比</a></li>
             </ul>
         </div>
         <div class="container">
-            <div class="title">商品类别交易额对比</div>
+            <div class="title">回头客预测结果对比</div>
             <div class="show">
                 <div class='chart-type'>柱状图</div>
                 <div id="main"></div>
@@ -38,16 +38,15 @@ ArrayList<String[]> list = connDb.index_3();
 //基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('main'));
 // 指定图表的配置项和数据
-var x = []
-var y = []
+var mydata = []
 <%
 	for(String[] a:list){
 		%>
-		x.push(<%=a[0]%>);
-		y.push(<%=a[1]%>);
+		mydata.push([<%=a[0]%>,<%=a[2]%>,<%=a[1]%>]);
 		<%
 	}
 %>
+
 option = {
     color: ['#3398DB'],
     tooltip : {
@@ -65,10 +64,10 @@ option = {
     xAxis : [
         {
             type : 'category',
-            data : x,
-            axisTick: {
-                alignWithLabel: true
-            }
+            data : ['预测值','总数','实际值']
+//            axisTick: {
+//                alignWithLabel: true
+//            }
         }
     ],
     yAxis : [
@@ -78,10 +77,10 @@ option = {
     ],
     series : [
         {
-            name:'Value',
+            name:'数量',
             type:'bar',
             barWidth: '60%',
-            data:y
+            data:[mydata[0][0],mydata[0][1],mydata[0][2]]
         }
     ]
 };

@@ -23,6 +23,7 @@ ArrayList<String[]> list = connDb.index_1();
                 <li><a href="./index2.jsp">男女买家各个年龄段交易对比</a></li>
                 <li><a href="./index3.jsp">商品类别交易额对比</a></li>
                 <li><a href="./index4.jsp">各省份的总成交量对比</a></li>
+                <li><a href="./index5.jsp">回头客预测结果对比</a></li>
             </ul>
         </div>
         <div class="container">

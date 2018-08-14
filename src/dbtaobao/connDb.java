@@ -102,4 +102,17 @@ public class connDb {
         endConn();
         return list;
     }
+    //鍚勪釜鐪佷唤鐨勭殑鎬绘垚浜ら噺瀵规瘮
+    public static ArrayList index_5() throws SQLException{
+        ArrayList<String[]> list = new ArrayList();
+        startConn();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("select * from (select count(*) score from rebuy where score='1.0') tt join (select count(*) lable from rebuy where  label='1.0') ttt join (select count(*) num from rebuy) tttt");
+        while(rs.next()){
+            String[] temp={rs.getString("score"),rs.getString("lable"),rs.getString("num")};
+            list.add(temp);
+        }
+        endConn();
+        return list;
+    }
 }
